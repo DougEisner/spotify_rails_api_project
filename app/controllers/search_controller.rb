@@ -12,12 +12,11 @@ class SearchController < ApplicationController
 
     albums = HTTParty.get("https://api.spotify.com/v1/artists/#{@id}/albums")
 
-    @albums = albums['items'].map do |item|
-      album = item['name']
-      album_image = item['images'][1]['url']
+    @albums = get_albums(albums)
+    @albums = @albums.each[:name].uniq
 
-      {albums: album, album_image: album_image}
-    end
+    # binding.pry
+
   end
 end
 
@@ -31,4 +30,13 @@ def get_artist_name_id
 
   # Id was not passed to the index function above w/o the @ instance variable symbol.
   @artist_name = response["artists"]["items"].first["name"]
+end
+
+def get_albums(albums)
+  albums['items'].map do |item|
+    name = item['name']
+    album_image = item['images'][1]['url']
+    # binding.pry - each time through album and album_image are given correct values. Is album being passed through?
+    {name: name, album_image: album_image}
+  end
 end
