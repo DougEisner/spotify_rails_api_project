@@ -1,0 +1,23 @@
+<% require 'pry' %>
+
+<% if @id.nil? %>
+  <h1>No results for artist <%= @search_term %></h2>
+
+<% else %>
+  <h2>Album results for <%= @artist_name %> </h2>
+
+  <!-- array_of_hashes.map { |h| h['a'] }.uniq -->
+  <% uniq_albums = @albums%>
+  <% uniq_albums.map { |a| a['name'] }.uniq %>
+
+  <% uniq_albums.each do |album| %>
+      <div>
+        <span class="image">
+         <%= image_tag album[:album_image] %>
+        </span>
+         <%= album[:name] %>
+      </div>
+     <% end %>
+<% end %>
+
+<% link_to 'Back', root_path %>
