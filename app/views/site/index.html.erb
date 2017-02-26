@@ -1,8 +1,7 @@
-<h1>Home Page: Search</h1>
-<p>(app/views/site/index.html.erb)</p>
-
+<h3>Find albums for an artist</h3>
+<br>
 <%= form_tag("/search", method: "get") do %>
-  <%= label_tag(:search_term, "Enter artist name:") %>
+  <%= label_tag(:search_term, "Enter artist's name:") %>
   <%= text_field_tag(:search_term) %>
   <%= submit_tag("Search") %>
 <% end %>

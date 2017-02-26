@@ -13,10 +13,9 @@ class SearchController < ApplicationController
     albums = HTTParty.get("https://api.spotify.com/v1/artists/#{@id}/albums")
 
     @albums = get_albums(albums)
-    @albums = @albums.each[:name].uniq
-
-    # binding.pry
-
+    #@albums is an array with 20 repeating hashes of all albums 20 times.
+    @albums = @albums.first
+    # Removes all the duplicate arrays. Shouldn't be needed, but get_albums duplicates the hash.
   end
 end
 
@@ -33,10 +32,13 @@ def get_artist_name_id
 end
 
 def get_albums(albums)
+  album_hash = {}
   albums['items'].map do |item|
     name = item['name']
     album_image = item['images'][1]['url']
-    # binding.pry - each time through album and album_image are given correct values. Is album being passed through?
-    {name: name, album_image: album_image}
+
+    album_hash.merge!(name => album_image)
+    # This merge function populates the hash and enforces uniqueness on key values.
+    #{name: name, album_image: album_image}
   end
 end
