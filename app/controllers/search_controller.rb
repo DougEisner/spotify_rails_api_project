@@ -38,7 +38,7 @@ def get_albums(albums)
     album_image = item['images'][1]['url']
 
     album_hash.merge!(name => album_image)
-    # This merge function populates the hash and enforces uniqueness on key values.
+    # This merge function populates the hash and enforces uniqueness on key values. But it duplicates all values.
     #{name: name, album_image: album_image}
   end
 end
